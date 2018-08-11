@@ -12,7 +12,7 @@ from .server.api.auth import LoginEndpoint
 from .server.api.clubs import ClubEndpoint, ClubsEndpoint
 from .server.api.users import UserEndpoint, UsersEndpoint
 from .server.config import ServerConfig
-
+from .server.api.membership import MembershipEndpoint, MembershipsEndpoint
 
 @click.group()
 def cli():
@@ -76,7 +76,7 @@ def start(port, secret, pg_host, pg_port, pg_user, pg_password, pg_database,
                         pg_database, allowed_origin)
     # Register your new endpoints here
     endpoints = [
-        UsersEndpoint, UserEndpoint, ClubsEndpoint, ClubEndpoint, LoginEndpoint
+        UsersEndpoint, UserEndpoint, ClubsEndpoint, ClubEndpoint, LoginEndpoint, MembershipEndpoint, MembershipsEndpoint
     ]
     serv = Server(conf, endpoints)
     serv.start()

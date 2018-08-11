@@ -177,3 +177,29 @@ def test_get_club__failure(server):
 def test_delete_club__success(server):
     _, response = server.app.test_client.delete('/clubs/test')
     assert response.status == 204
+
+
+def test_post_memberships__success(server):
+    _, response = server.app.test_client.post(
+        '/memberships',
+        data=json.dumps({
+            'user_id': '384928',
+            'club_id': '2342',
+        }))
+    assert response.status == 201
+
+
+def test_post_memberships__failure(server):
+    _, response = server.app.test_client.post(
+        '/clubs',
+        data=json.dumps({
+            'user_id': '12313',
+            'club_id': '212314',
+        }))
+    assert response.status == 409
+    assert 'error' in response.json
+
+def test_delete_membership_success(server):
+    _, response = server.app.test_client.delete('/memberships/test')
+    assert response.status == 204
+
