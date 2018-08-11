@@ -5,7 +5,6 @@ from sqlalchemy.orm import relationship
 from sqlalchemy.types import TIMESTAMP
 
 from . import BASE
-from .membership import Membership
 
 
 class User(BASE):
