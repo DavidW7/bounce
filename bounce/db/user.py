@@ -1,15 +1,14 @@
 """Defines the schema for the Users table in our DB."""
 
 from sqlalchemy import Column, Integer, String, func
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.types import TIMESTAMP
 from sqlalchemy.orm import relationship
+from sqlalchemy.types import TIMESTAMP
+
+from . import BASE
 from .membership import Membership
 
-Base = declarative_base()  # pylint: disable=invalid-name
 
-
-class User(Base):
+class User(BASE):
     """
     Specifies a mapping between a User as a Python object and the Users table
     in our DB.
@@ -23,8 +22,7 @@ class User(Base):
     email = Column('email', String, nullable=False)
     created_at = Column(
         'created_at', TIMESTAMP, nullable=False, server_default=func.now())
-    clubs = relationship('Club', secondary=Membership, 
-        back_populates="members")
+    clubs = relationship('Membership', back_populates='member')
 
     def to_dict(self):
         """Returns a dict representation of a User.

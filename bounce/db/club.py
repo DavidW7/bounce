@@ -5,14 +5,14 @@ Also provides methods to access and edit the DB.
 
 from sqlalchemy import Column, Integer, String, func
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.types import TIMESTAMP
 from sqlalchemy.orm import relationship
+from sqlalchemy.types import TIMESTAMP
+
+from . import BASE
 from .membership import Membership
 
-Base = declarative_base()  # pylint: disable=invalid-name
 
-
-class Club(Base):
+class Club(BASE):
     """
     Specifies a mapping between a Club as a Python object and the Clubs table
     in our DB.
@@ -28,9 +28,7 @@ class Club(Base):
     twitter_url = Column('twitter_url', String, nullable=True)
     created_at = Column(
         'created_at', TIMESTAMP, nullable=False, server_default=func.now())
-
-    members = relationship('User', secondary=Membership, 
-        back_populates='clubs')
+    members = relationship('Membership', back_populates='club')
 
     def to_dict(self):
         """Returns a dict representation of a club."""
