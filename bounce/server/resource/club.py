@@ -68,7 +68,7 @@ class GetClubResponse(metaclass=ResourceMeta):
         'object',
         'required': [
             'name', 'description', 'website_url', 'facebook_url',
-            'instagram_url', 'twitter_url', 'id', 'created_at', 'tsvector'
+            'instagram_url', 'twitter_url', 'id', 'created_at'
         ],
         'additionalProperties':
         False,
@@ -99,7 +99,7 @@ class GetClubResponse(metaclass=ResourceMeta):
                 'type': 'integer',
             },
             'search_vector': {
-                'type': 'tsvector'
+                'type': 'string'
             },
         }
     }
@@ -156,7 +156,7 @@ class SearchClubsResponse(metaclass=ResourceMeta):
                         'type': 'integer',
                     },
                     'search_vector': {
-                        'type': 'tsvector'
+                        'type': 'string'
                     },
                 }
             }

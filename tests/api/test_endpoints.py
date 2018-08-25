@@ -146,23 +146,39 @@ def test_search_clubs(server):
         data=json.dumps({
             'name': 'ubclaunchpad',
             'description': 'software engineering team',
+            'website_url': '',
+            'facebook_url': '',
+            'instagram_url': '',
+            'twitter_url': '',
         }))
     server.app.test_client.post(
         '/clubs',
         data=json.dumps({
             'name': 'envision',
-            'description': 'chemical engineering team',
+            'description': 'ubc chemical engineering team',
+            'website_url': '',
+            'facebook_url': '',
+            'instagram_url': '',
+            'twitter_url': '',
         }))
     server.app.test_client.post(
         '/clubs',
         data=json.dumps({
             'name': 'ubcbiomod',
             'description': 'chemical engineering team',
+            'website_url': '',
+            'facebook_url': '',
+            'instagram_url': '',
+            'twitter_url': '',
         }))
-    server.app.test_client.get('/clubs/search?query=chemical')
-    assert queried_clubs.count() == 2
+    import pdb
+    _, response = server.app.test_client.get('/clubs/search?query=team')
+    assert response.status == 200
+    body = response.json
+    pdb.set_trace()
+    assert len(body) == 2
 
-    
+
 def test_put_club__success(server):
     _, response = server.app.test_client.put(
         '/clubs/test',

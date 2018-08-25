@@ -1,3 +1,19 @@
+CREATE OR REPLACE FUNCTION tsq_parse(config regconfig, search_query text)
+RETURNS tsquery AS $$
+    SELECT tsq_process_tokens(config, tsq_tokenize(search_query));
+$$ LANGUAGE SQL IMMUTABLE;
+
+
+CREATE OR REPLACE FUNCTION tsq_parse(config text, search_query text)
+RETURNS tsquery AS $$
+    SELECT tsq_parse(config::regconfig, search_query);
+$$ LANGUAGE SQL IMMUTABLE;
+
+
+CREATE OR REPLACE FUNCTION tsq_parse(search_query text) RETURNS tsquery AS $$
+    SELECT tsq_parse(get_current_ts_config(), search_query);
+$$ LANGUAGE SQL IMMUTABLE;
+
 DROP TABLE IF EXISTS clubs;
 CREATE TABLE clubs (
     id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,

@@ -5,7 +5,6 @@ Defines Bounce's command line interface.
 import logging
 
 import click
-
 from sanic.log import logger
 
 from .server import Server
@@ -77,7 +76,8 @@ def start(port, secret, pg_host, pg_port, pg_user, pg_password, pg_database,
                         pg_database, allowed_origin)
     # Register your new endpoints here
     endpoints = [
-        UsersEndpoint, UserEndpoint, SearchClubsEndpoint, ClubsEndpoint, ClubEndpoint, LoginEndpoint
+        UsersEndpoint, UserEndpoint, SearchClubsEndpoint, ClubsEndpoint,
+        ClubEndpoint, LoginEndpoint
     ]
     serv = Server(conf, endpoints)
     serv.start()
